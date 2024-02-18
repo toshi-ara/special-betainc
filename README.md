@@ -18,7 +18,7 @@ The **regularized incomplete beta function**
 ```
 
 
-This package is a rewrite of
+This package is a rewrite of `ibeta` function in
  [jstat](https://www.npmjs.com/package/jstat)
  in Typescript.
 This package supports both CommonJs and ES Modules.
