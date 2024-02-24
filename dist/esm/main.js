@@ -1,6 +1,6 @@
 import { gammaln } from "@toshiara/special-gammaln";
 // Returns the incomplete beta function I_x(a,b)
-export function betainc(x, a, b) {
+export function betainc(x, a, b, { upper = false } = {}) {
     if (x < 0 || x > 1) {
         // return false;
         return 0;
@@ -9,6 +9,10 @@ export function betainc(x, a, b) {
     const bt = (x === 0 || x === 1) ? 0 :
         Math.exp(gammaln(a + b) - gammaln(a) - gammaln(b) +
             a * Math.log(x) + b * Math.log(1 - x));
+    if (upper) {
+        [a, b] = [b, a];
+        x = 1 - x;
+    }
     if (x < (a + 1) / (a + b + 2)) {
         // Use continued fraction directly.
         return bt / a * betacf(x, a, b);
