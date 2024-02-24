@@ -1,8 +1,15 @@
 import { gammaln } from "@toshiara/special-gammaln";
 
 
+type TypeOption = {
+    upper?: boolean
+}
+
+
 // Returns the incomplete beta function I_x(a,b)
-export function betainc(x: number, a: number, b: number): number {
+export function betainc(x: number, a: number, b: number, {
+                            upper = false
+                        }: TypeOption = {}): number {
     if (x < 0 || x > 1) {
         // return false;
         return 0;
@@ -12,6 +19,11 @@ export function betainc(x: number, a: number, b: number): number {
     const bt = (x === 0 || x === 1) ?  0 :
         Math.exp(gammaln(a + b) - gammaln(a) - gammaln(b) +
                  a * Math.log(x) + b * Math.log(1 - x));
+
+    if (upper) {
+        [a, b] = [b, a];
+        x = 1 - x;
+    }
 
     if (x < (a + 1) / (a + b + 2)) {
         // Use continued fraction directly.

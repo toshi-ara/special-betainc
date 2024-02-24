@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.betainc = void 0;
 const special_gammaln_1 = require("@toshiara/special-gammaln");
 // Returns the incomplete beta function I_x(a,b)
-function betainc(x, a, b) {
+function betainc(x, a, b, { upper = false } = {}) {
     if (x < 0 || x > 1) {
         // return false;
         return 0;
@@ -12,6 +12,10 @@ function betainc(x, a, b) {
     const bt = (x === 0 || x === 1) ? 0 :
         Math.exp((0, special_gammaln_1.gammaln)(a + b) - (0, special_gammaln_1.gammaln)(a) - (0, special_gammaln_1.gammaln)(b) +
             a * Math.log(x) + b * Math.log(1 - x));
+    if (upper) {
+        [a, b] = [b, a];
+        x = 1 - x;
+    }
     if (x < (a + 1) / (a + b + 2)) {
         // Use continued fraction directly.
         return bt / a * betacf(x, a, b);
