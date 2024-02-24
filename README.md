@@ -41,13 +41,20 @@ const { betainc } = require('@toshiara/special-betainc');
 import { betainc } from '@toshiara/special-betainc';
 ```
 
-### betainc(x, a, b)
+### betainc(x, a, b[, option])
 
-Evaluates the regularized lower
+Evaluates the regularized lower or upper
 [incomplete beta function](https://en.wikipedia.org/wiki/Incomplete_beta_function)
  for inputs `x`, `a > 0` and `b > 0`.
 
+The function accepts the following `option`:
+
+* __upper__:`boolean` indicating whether to evaluate
+  the *lower* (`false`) or *upper* (`true`) incomplete beta function.
+  Default: `false`.
+
 ```javascript
+// regularized lower incomplete beta function
 betainc(0.001, 1.1, 2);
 // returns 0.001051941884660282
 
@@ -62,6 +69,11 @@ betainc(0.8, 3, 4)
 
 betainc(0.999, 4.5, 3.5)
 // returns 0.9999999988252123
+
+// regularized upper incomplete beta function
+betainc(0.4, 1.5, 2.5, { upper: true })
+// returns 0.4268675798318482
+
 ```
 
 
